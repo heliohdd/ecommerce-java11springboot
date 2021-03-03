@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hdtec.ecommercejava11springboot.model.Category;
 import com.hdtec.ecommercejava11springboot.repositories.CategoryRepository;
+import com.hdtec.ecommercejava11springboot.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoryService {
@@ -16,6 +17,7 @@ public class CategoryService {
 	
 	public Category find(Integer id) {
 		Optional<Category> obj = categoryRepository.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Object not found! Id: " + id + ", Type: " + Category.class.getName()));
 	}
 }
