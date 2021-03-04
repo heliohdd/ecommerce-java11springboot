@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.hdtec.ecommercejava11springboot.model.enums.ClientType;
 
 @Entity
@@ -28,6 +29,7 @@ public class Client implements Serializable {
 	private String cpfOrCnpj;
 	private Integer type;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy="client")
 	private List<Address> addresses = new ArrayList<>();
 
@@ -78,8 +80,8 @@ public class Client implements Serializable {
 		this.cpfOrCnpj = cpfOrCnpj;
 	}
 
-	public Integer getType() {
-		return type;
+	public ClientType getType() {
+		return ClientType.toEnum(type);
 	}
 
 	public void setType(ClientType type) {
