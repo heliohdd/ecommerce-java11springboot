@@ -2,7 +2,9 @@ package com.hdtec.ecommercejava11springboot.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,11 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class Product implements Serializable {
+public class Product implements Serializable {		//	Produto
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -31,6 +34,9 @@ public class Product implements Serializable {
 		inverseJoinColumns = @JoinColumn(name = "category_id")
 	)
 	private List<Category> categories = new ArrayList<>();
+	
+	@OneToMany(mappedBy="id.product")
+	private Set<DemandItem> itens = new HashSet<>();
 
 	public Product() {
 	}
@@ -41,6 +47,14 @@ public class Product implements Serializable {
 		this.price = price;
 	}
 
+	public List<Demand> getDemands() {
+		List<Demand> list = new ArrayList<>();
+		for (DemandItem x : itens) {
+			list.add(x.getDemand());
+		}
+		return list;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -71,6 +85,14 @@ public class Product implements Serializable {
 
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
+	}
+	
+	public Set<DemandItem> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<DemandItem> itens) {
+		this.itens = itens;
 	}
 
 	@Override

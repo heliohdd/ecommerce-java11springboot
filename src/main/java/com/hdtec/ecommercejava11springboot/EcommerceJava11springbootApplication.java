@@ -15,6 +15,7 @@ import com.hdtec.ecommercejava11springboot.model.City;
 import com.hdtec.ecommercejava11springboot.model.Client;
 import com.hdtec.ecommercejava11springboot.model.Credit;
 import com.hdtec.ecommercejava11springboot.model.Demand;
+import com.hdtec.ecommercejava11springboot.model.DemandItem;
 import com.hdtec.ecommercejava11springboot.model.Payment;
 import com.hdtec.ecommercejava11springboot.model.Product;
 import com.hdtec.ecommercejava11springboot.model.State;
@@ -24,6 +25,7 @@ import com.hdtec.ecommercejava11springboot.repositories.AddressRepository;
 import com.hdtec.ecommercejava11springboot.repositories.CategoryRepository;
 import com.hdtec.ecommercejava11springboot.repositories.CityRepository;
 import com.hdtec.ecommercejava11springboot.repositories.ClientRepository;
+import com.hdtec.ecommercejava11springboot.repositories.DemandItemRepository;
 import com.hdtec.ecommercejava11springboot.repositories.DemandRepository;
 import com.hdtec.ecommercejava11springboot.repositories.PaymentRepository;
 import com.hdtec.ecommercejava11springboot.repositories.ProductRepository;
@@ -52,8 +54,12 @@ public class EcommerceJava11springbootApplication implements CommandLineRunner {
 	
 	@Autowired
 	private DemandRepository demandRepository  ;
+	
 	@Autowired
 	private PaymentRepository paymentRepository;
+	
+	@Autowired
+	private DemandItemRepository demandItemRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(EcommerceJava11springbootApplication.class, args);
@@ -107,18 +113,31 @@ public class EcommerceJava11springbootApplication implements CommandLineRunner {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-		Demand ped1 = new Demand(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
-		Demand ped2 = new Demand(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
+		Demand dem1 = new Demand(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
+		Demand dem2 = new Demand(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
 
-		Payment pagto1 = new Credit(null, PaymentStatus.MADE, ped1, 6);
-		ped1.setPayment(pagto1);
+		Payment paymt1 = new Credit(null, PaymentStatus.MADE, dem1, 6);
+		dem1.setPayment(paymt1);
 
-		Payment pagto2 = new Billet(null, PaymentStatus.PENDING, ped2, sdf.parse("20/10/2017 00:00"), null);
-		ped2.setPayment(pagto2);
+		Payment paymt2 = new Billet(null, PaymentStatus.PENDING, dem2, sdf.parse("20/10/2017 00:00"), null);
+		dem2.setPayment(paymt2);
 
-		cli1.getDemands().addAll(Arrays.asList(ped1, ped2));
+		cli1.getDemands().addAll(Arrays.asList(dem1, dem2));
 
-		demandRepository.saveAll(Arrays.asList(ped1, ped2));
-		paymentRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		demandRepository.saveAll(Arrays.asList(dem1, dem2));
+		paymentRepository.saveAll(Arrays.asList(paymt1, paymt2));
+		
+		DemandItem di1 = new DemandItem(dem1, p1, 0.00, 1, 2000.00);
+		DemandItem di2 = new DemandItem(dem1, p3, 0.00, 2, 80.00);
+		DemandItem di3 = new DemandItem(dem2, p2, 100.00, 1, 800.00);
+
+		dem1.getItens().addAll(Arrays.asList(di1, di2));
+		dem2.getItens().addAll(Arrays.asList(di3));
+
+		p1.getItens().addAll(Arrays.asList(di1));
+		p2.getItens().addAll(Arrays.asList(di3));
+		p3.getItens().addAll(Arrays.asList(di2));
+
+		demandItemRepository.saveAll(Arrays.asList(di1, di2, di3));
 	}
 }

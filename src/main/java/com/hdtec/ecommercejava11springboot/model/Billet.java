@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import com.hdtec.ecommercejava11springboot.model.enums.PaymentStatus;
 
 @Entity
-public class Billet extends Payment { // PagamentoComBoleto
+public class Billet extends Payment {		// PagamentoComBoleto
 	private static final long serialVersionUID = 1L;
 	
 	private Date dueDate;

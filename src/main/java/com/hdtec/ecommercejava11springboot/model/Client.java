@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.hdtec.ecommercejava11springboot.model.enums.ClientType;
 
 @Entity
-public class Client implements Serializable {
+public class Client implements Serializable {		//	Cliente
 	private static final long serialVersionUID = 1L;
 	
 	@Id

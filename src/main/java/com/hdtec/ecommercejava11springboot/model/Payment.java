@@ -14,7 +14,7 @@ import com.hdtec.ecommercejava11springboot.model.enums.PaymentStatus;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Payment implements Serializable {
+public class Payment implements Serializable {		//	Pagamento
 	private static final long serialVersionUID = 1L;
 
 	@Id

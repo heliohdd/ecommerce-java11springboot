@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class Address implements Serializable {
+public class Address implements Serializable {		// Endereco
 	private static final long serialVersionUID = 1L;
 
 	@Id
