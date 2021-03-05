@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.hdtec.ecommercejava11springboot.model.enums.PaymentStatus;
 
 @Entity
@@ -21,6 +22,7 @@ public class Payment implements Serializable {		//	Pagamento
 	private Integer id;
 	private Integer status;
 
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name = "demand_id")
 	@MapsId
