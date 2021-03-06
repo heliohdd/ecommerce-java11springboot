@@ -14,8 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hdtec.ecommercejava11springboot.model.enums.ClientType;
 
 @Entity
@@ -30,7 +29,6 @@ public class Client implements Serializable {		//	Cliente
 	private String cpfOrCnpj;
 	private Integer type;
 
-	@JsonManagedReference
 	@OneToMany(mappedBy="client")
 	private List<Address> addresses = new ArrayList<>();
 
@@ -38,7 +36,7 @@ public class Client implements Serializable {		//	Cliente
 	@CollectionTable(name="PHONE")
 	private Set<String> phones = new HashSet<>();
 
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Demand> demands = new ArrayList<>();
 	
