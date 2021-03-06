@@ -12,13 +12,13 @@ import com.hdtec.ecommercejava11springboot.services.DemandService;
 
 @RestController
 @RequestMapping(value="/demands")
-public class DemandController {
+public class DemandController {		//	PedidoResource
 	
 	@Autowired
 	private DemandService demandService;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Demand> find(@PathVariable Integer id) {
 		Demand obj = demandService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}

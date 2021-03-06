@@ -10,7 +10,7 @@ import com.hdtec.ecommercejava11springboot.repositories.DemandRepository;
 import com.hdtec.ecommercejava11springboot.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class DemandService {
+public class DemandService {		//	PedidoService
 	
 	@Autowired
 	private DemandRepository demandRepository;

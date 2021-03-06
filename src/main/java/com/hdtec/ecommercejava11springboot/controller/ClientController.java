@@ -12,16 +12,14 @@ import com.hdtec.ecommercejava11springboot.services.ClientService;
 
 @RestController
 @RequestMapping(value="/clients")
-public class ClientController {
+public class ClientController {		//	ClienteResource
 
 	@Autowired
 	private ClientService clientService;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
-
+	public ResponseEntity<Client> find(@PathVariable Integer id) {
 		Client obj = clientService.find(id);
 		return ResponseEntity.ok().body(obj);
-		
 	}
 }

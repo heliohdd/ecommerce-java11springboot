@@ -10,7 +10,7 @@ import com.hdtec.ecommercejava11springboot.repositories.ClientRepository;
 import com.hdtec.ecommercejava11springboot.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class ClientService {
+public class ClientService {		//	ClienteService
 
 	@Autowired
 	private ClientRepository clientRepository;
