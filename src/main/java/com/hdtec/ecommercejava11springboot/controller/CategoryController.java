@@ -1,6 +1,8 @@
 package com.hdtec.ecommercejava11springboot.controller;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.hdtec.ecommercejava11springboot.dto.CategoryDTO;
 import com.hdtec.ecommercejava11springboot.model.Category;
 import com.hdtec.ecommercejava11springboot.services.CategoryService;
 
@@ -47,5 +50,12 @@ public class CategoryController {		// CategoriaResource
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		categoryService.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<CategoryDTO>> findAll() {
+		List<Category> list = categoryService.findAll();
+		List<CategoryDTO> listDto = list.stream().map(obj -> new CategoryDTO(obj)).collect(Collectors.toList());  
+		return ResponseEntity.ok().body(listDto);
 	}
 }

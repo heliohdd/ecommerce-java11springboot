@@ -1,5 +1,6 @@
 package com.hdtec.ecommercejava11springboot.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,9 @@ public class CategoryService {		//	CategoriaService
 		catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Can't exclude a category that has any product.");
 		}
+	}
+
+	public List<Category> findAll() {
+		return categoryRepository.findAll();
 	}
 }
