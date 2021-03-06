@@ -3,10 +3,16 @@ package com.hdtec.ecommercejava11springboot.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.hdtec.ecommercejava11springboot.dto.CategoryDTO;
 import com.hdtec.ecommercejava11springboot.model.Category;
 import com.hdtec.ecommercejava11springboot.repositories.CategoryRepository;
 import com.hdtec.ecommercejava11springboot.services.exceptions.DataIntegrityException;
@@ -46,5 +52,14 @@ public class CategoryService {		//	CategoriaService
 
 	public List<Category> findAll() {
 		return categoryRepository.findAll();
+	}
+
+	public Page<Category> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return categoryRepository.findAll(pageRequest);
+	}
+
+	public Category fromDTO(@Valid CategoryDTO objDto) {
+		return new Category(objDto.getId(), objDto.getName());
 	}
 }
