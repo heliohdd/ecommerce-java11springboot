@@ -59,7 +59,7 @@ public class ClientService {		//	ClienteService
 			clientRepository.deleteById(id);
 		}
 		catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Cannot delete because there are related entities.");
+			throw new DataIntegrityException("Cannot delete client because there are related orders.");
 		}
 	}
 	
