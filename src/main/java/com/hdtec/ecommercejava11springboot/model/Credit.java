@@ -2,9 +2,11 @@ package com.hdtec.ecommercejava11springboot.model;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.hdtec.ecommercejava11springboot.model.enums.PaymentStatus;
 
 @Entity
+@JsonTypeName("credit")
 public class Credit extends Payment {		// PagamentoComCartão
 	private static final long serialVersionUID = 1L;
 		
