@@ -2,20 +2,41 @@ package com.hdtec.ecommercejava11springboot.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.hdtec.ecommercejava11springboot.services.validation.ClientInsert;
+
+@ClientInsert
 public class ClientNewDTO implements Serializable {		//	ClienteNewDTO
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message = "Name is mandatory.")
+	@Length(min=5, max=120, message="Length needs to be between 5 and 120 characters.")
 	private String name;
+
+	@NotEmpty(message = "Email is mandatory")
+	@Email(message="Invalid email.")
 	private String email;
+	
+	@NotEmpty(message = "This field is mandatory")
 	private String cpfOuCnpj;
 	private Integer type;
 
+	@NotEmpty(message = "This field is mandatory")
 	private String public_Place;
+	
+	@NotEmpty(message = "This field is mandatory")
 	private String number;
 	private String complement;
 	private String district;
+	
+	@NotEmpty(message = "This field is mandatory")
 	private String zip_code;
 
+	@NotEmpty(message = "This field is mandatory")
 	private String phone1;
 	private String phone2;
 	private String phone3;
