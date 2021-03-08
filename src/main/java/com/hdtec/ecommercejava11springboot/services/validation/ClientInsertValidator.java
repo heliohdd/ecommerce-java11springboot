@@ -6,13 +6,20 @@ import java.util.List;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.hdtec.ecommercejava11springboot.controller.exception.FieldMessage;
 import com.hdtec.ecommercejava11springboot.dto.ClientNewDTO;
+import com.hdtec.ecommercejava11springboot.model.Client;
 import com.hdtec.ecommercejava11springboot.model.enums.ClientType;
+import com.hdtec.ecommercejava11springboot.repositories.ClientRepository;
 import com.hdtec.ecommercejava11springboot.services.validation.utils.BR;
 
 public class ClientInsertValidator implements ConstraintValidator<ClientInsert, ClientNewDTO> {
 
+	@Autowired
+	private ClientRepository clientRepository;
+	
 	@Override
 	public void initialize(ClientInsert ann) {
 	}
@@ -30,6 +37,11 @@ public class ClientInsertValidator implements ConstraintValidator<ClientInsert, 
 			list.add(new FieldMessage("cpfOuCnpj", "Invalid CNPJ."));
 		}
 
+		Client aux = clientRepository.findByEmail(objDto.getEmail());
+		if (aux != null) {
+			list.add(new FieldMessage("email", "Existing email."));
+		}
+		
 		for (FieldMessage e : list) {
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFieldName())
