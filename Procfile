@@ -1,0 +1,1 @@
+web: java -Dserver.port=$PORT -Dspring.profiles.active=prod $JAVA_OPTS -jar target/ecommerce-java11springboot-1.0.0-SNAPSHOT.jar
